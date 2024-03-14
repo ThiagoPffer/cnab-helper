@@ -42,7 +42,11 @@
     <section id="text-editor" class="d-none p-v-25">
         <div class="column-container justify-center align-center mw-80 m-0-auto">
             <div id="description-display" class="d-none"></div>
-            <div id="text-editor-display" onblur="onBlur(event)"></div>
+            <div id="text-editor-container">
+                &#8203;
+                <div id="text-editor-display" onblur="onBlur(event)"></div>
+                &#8203;
+            </div>
             <div class="row-container">
                 <div class="details-container">
                     <span>Posição: </span>
@@ -51,8 +55,29 @@
             </div>
             <div id="error-display" class="d-none"></div>
             <button class="back-button" id="back" type="button" onclick="goBack()">Voltar</button>
+
         </div>
     </section>
+    <!-- <ul>
+        <li>
+            <input type="checkbox" /> Desenvolver uma caixa de texto para inserir o conteúdo do cnab
+        </li>
+        <li>
+            <input type="checkbox" /> Enumerar as linhas do display
+        </li>
+        <li>
+            <input type="checkbox" /> Permitir trocar de linhas usando as setas pra cima e baixo
+        </li>
+        <li>
+            <input type="checkbox" /> Detectar qual o segmento que a linha pertence
+        </li>
+        <li>
+            <input type="checkbox" /> Inserir valores default ao inicializar
+        </li>
+        <li>
+            <input type="checkbox" /> Inserir notas do cnab
+        </li>
+    </ul> -->
     <script src="src/js/index.js"></script>
     <script src="src/js/itau400ret.js"></script>
 </body>

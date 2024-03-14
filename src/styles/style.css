@@ -146,81 +146,70 @@ textarea {
     border-radius: 8px;
 }
 
+#text-editor-container {
+    width: 100%;
+}
+
 #text-editor-display {
-    font-family: monospace !important;
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
     font-weight: 500;
     font-size: 16px;
-    margin: 25px auto;
+    line-height: 32px;
     border-radius: 8px;
     background-color: #383737;
     width: 100%;
-    min-height: 250px;
+    min-height: fit-content;
     max-height: 550px;
     overflow: auto;
     padding: 10px;
+    padding-right: 50px;
     text-wrap: nowrap;
     border: 2px solid transparent;
     transition: .2s;
     position: relative;
 }
 
-#text-editor-display > span {
+#text-editor-display > .segment {
+    display: block;
+    width: fit-content;
+}
+
+#text-editor-display span {
+    font-family: monospace;
     padding: 5px 0;
     transition: .2s;
     border: 1px solid transparent;
     border-radius: 8px;
+    size: 1px;
     white-space: pre;
     outline: none;
     text-wrap: nowrap;
 }
 
-#text-editor-display > span:hover,
-#text-editor-display > span:focus {
+#text-editor-display span:hover,
+#text-editor-display span:focus {
     background-color: rgba(175, 175, 175, 0.15);
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px dashed rgb(196, 196, 196);
     padding: 5px 15px;
 }
 
-#text-editor-display > span.selected {
-    background-color: rgba(10, 172, 10, 0.150);
-    border: 1px solid rgb(8, 145, 8);
+#text-editor-display span.selected {
+    background-color: rgba(10, 172, 10, 0.036);
+    border: 1px dashed rgb(76, 237, 76);
     padding: 5px 15px;
 }
 
-#text-editor-display > span.danger {
+#text-editor-display span.danger {
     background-color: rgba(255, 0, 0, 0.305);
-    border: 1px solid rgb(255, 99, 99);
+    border: 1px dashed rgb(255, 99, 99);
     padding: 5px 15px;
 }
 
-#text-editor-display > span.warning {
+#text-editor-display span.warning {
     background-color: rgba(255, 221, 0, 0.305);
-    border: 1px solid rgb(255, 190, 99);
-    padding: 5px 15px;
-}
-
-#text-editor-display > input {
-    background-color: unset;
-    color: white;
-    font-size: inherit;
-    display: inline-block;
-    padding: 5px 0;
-    transition: .2s;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    white-space: pre;
-}
-
-#text-editor-display > input:hover,
-#text-editor-display > input:focus {
-    background-color: rgba(175, 175, 175, 0.15);
-    border: 1px solid rgb(196, 196, 196);
-    padding: 5px 15px;
-}
-
-#text-editor-display > input.selected {
-    background-color: rgba(10, 172, 10, 0.150);
-    border: 1px solid rgb(8, 145, 8);
+    border: 1px dashed rgb(255, 190, 99);
     padding: 5px 15px;
 }
 
