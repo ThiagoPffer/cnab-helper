@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNAB helper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/normalize.css">
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>CNAB Helper</h1>
+    </header>
+
+    <hr>
+
+    <section id="bank-selection">
+        <header>
+            <h3>Selecione um banco para iniciar</h3>
+        </header>
+        <div class="row-container justify-center">
+            <div class="bank-card" id="b341" onclick="selectBank('341')">
+                <img src="src/assets/itau-logo-2023.svg" alt="Banco Itaú">
+                <span>Banco Itaú</spa/n>
+            </div>
+        </div>
+    </section>
+
+    <section id="cnab-selection" class="d-none">
+        <header>
+            <h3>Selecione um CNAB deste banco</h3>
+        </header>
+        <div class="row-container justify-center gap-16">
+            <button class="cnab-button" id="c400" type="button" onclick="selectCnab('400')">CNAB 400</button>
+            <button class="cnab-button" id="c240" type="button" onclick="selectCnab('240')">CNAB 240</button>
+        </div>
+    </section>
+
+    <section id="text-editor" class="d-none p-v-25">
+        <div class="column-container justify-center align-center mw-80 m-0-auto">
+            <div id="description-display" class="d-none"></div>
+            <div id="text-editor-display" onblur="onBlur(event)"></div>
+            <div class="row-container">
+                <div class="details-container">
+                    <span>Posição: </span>
+                    <span id="caret-position-label"></span>
+                </div>
+            </div>
+            <div id="error-display" class="d-none"></div>
+            <button class="back-button" id="back" type="button" onclick="goBack()">Voltar</button>
+        </div>
+    </section>
+    <script src="src/js/index.js"></script>
+    <script src="src/js/itau400ret.js"></script>
+</body>
+</html>
