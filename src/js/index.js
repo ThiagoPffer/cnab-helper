@@ -58,18 +58,22 @@ const selectFile = (fileCode) => {
 
 const start = () => {
     const fileContent = TEXT_AREA_INPUT.value;
-    if (fileContent) {
-        BANK_SECTION.classList.add('d-none');
-        CNAB_SECTION.classList.add('d-none');
-        FILE_SECTION.classList.add('d-none');
-        TEXT_AREA_CONTAINER.classList.add('d-none');
-        TEXT_EDITOR_SECTION.classList.remove('d-none');
-        
-        SELECTED_TEMPLATE = CNAB_TEMPLATES[SELECTION_OPTIONS.bank][SELECTION_OPTIONS.cnab][SELECTION_OPTIONS.file];
+    if (fileContent) {      
+        try {
+            SELECTED_TEMPLATE = CNAB_TEMPLATES[SELECTION_OPTIONS.bank][SELECTION_OPTIONS.cnab][SELECTION_OPTIONS.file];
 
-        const segList = getSegmentsFromFileContents(fileContent);
-        segList.forEach(seg => TEXT_EDITOR_DISPLAY.appendChild(seg));
-        TEXT_AREA_INPUT.value = null;
+            const segList = getSegmentsFromFileContents(fileContent);
+            segList.forEach(seg => TEXT_EDITOR_DISPLAY.appendChild(seg));
+            TEXT_AREA_INPUT.value = null;
+    
+            BANK_SECTION.classList.add('d-none');
+            CNAB_SECTION.classList.add('d-none');
+            FILE_SECTION.classList.add('d-none');
+            TEXT_AREA_CONTAINER.classList.add('d-none');
+            TEXT_EDITOR_SECTION.classList.remove('d-none');
+        } catch(error) {
+            console.error(error.message);
+        }
     }
 }
 
@@ -97,20 +101,31 @@ const getSegmentsFromFileContents = (content) => {
     let segList = [];
     let dividedContent = content.split('\n');
 
-    dividedContent.forEach((segContent, index) => {
-        const seg = SELECTED_TEMPLATE[index];
-        let spanList = [];
-        seg.positions.forEach(pos => {
-            const spanContent = String(segContent).substring((pos.s-1), (pos.e));
-            spanList.push(`<span id="${pos.id}" contenteditable="true" onfocus="onFocus(event, ${seg.id}, ${pos.id})" onkeyup="onKeyUp(event, ${seg.id}, ${pos.id})" onkeypress="onKeyPress(event, ${(pos.e-pos.s)+1})" onblur="onBlur(event, ${(pos.e-pos.s)+1})">${spanContent}</span>`);
-        });
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('segment');
-        newDiv.innerHTML = spanList.join('');
-        segList.push(newDiv);
+    dividedContent.forEach((segContent) => {
+        if (segContent.length) {
+            const seg = getCurrentSegment(segContent);
+            let spanList = [];
+            seg.positions.forEach(pos => {
+                const spanContent = String(segContent).substring((pos.s-1), (pos.e));
+                spanList.push(`<span id="${pos.id}" contenteditable="true" onfocus="onFocus(event, ${seg.id}, ${pos.id})" onkeyup="onKeyUp(event, ${seg.id}, ${pos.id})" onkeypress="onKeyPress(event, ${(pos.e-pos.s)+1})" onblur="onBlur(event, ${(pos.e-pos.s)+1})">${spanContent}</span>`);
+            });
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('segment');
+            newDiv.innerHTML = spanList.join('');
+            segList.push(newDiv);
+        }
     });
 
     return segList;
+}
+
+const getCurrentSegment = (segContent) => {
+    try {
+        const segId = Number(segContent[0]);
+        return SELECTED_TEMPLATE.find(seg => seg.id === segId);
+    } catch (error) {
+        console.error('O arquivo informado é inválido. Detalhes do erro: ', error.message);
+    }
 }
 
 const onKeyUp = (event, segId, posId) => {
