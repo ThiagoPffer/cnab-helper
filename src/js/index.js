@@ -1,64 +1,104 @@
+const CNAB_TEMPLATES = {
+    341: {
+        400: {
+            ret: itau400retTemplate,
+            rem: null
+        },
+        240: null
+    }
+}
+
+const SELECTION_OPTIONS = { bank: null, cnab: null, file: null };
+let SELECTED_TEMPLATE = null;
+
 let CARET_POSITION = 0;
 
-const fileContent = `02RETORNO01COBRANCA       072400654321        DUNDER MIFFLIN PAPER COMPANY L341BANCO ITAU S.A.12032401600BPI00050120324                                                                                                                                                                                                                                                                                   000001
-10216958379000187072400654321        T280220240101            00000001            099000000011             I06040923000831500100000325            04092300000013373783416305701000000000014000000000000000000000000000000000000000000000000000000000000040121000000129711700000000000000000000000000   05092300000000000000000000000MUNDIALMIX COMERCIO DE ALIM...                                      CK000016`
 const CNAB_BUTTONS = document.querySelectorAll('.cnab-button');
+const FILE_BUTTONS = document.querySelectorAll('.file-button');
+const SELECTION_LABELS = document.querySelectorAll('.selection-label');
+
+const BANK_SECTION = document.getElementById('bank-selection');
+const CNAB_SECTION = document.getElementById('cnab-selection');
+const FILE_SECTION = document.getElementById('file-selection');
+const TEXT_EDITOR_SECTION = document.getElementById('text-editor');
+const TEXT_EDITOR_DISPLAY = document.getElementById('text-editor-display');
+const DESCRIPTION_DISPLAY = document.getElementById('description-display');
+const CARET_POSITION_LABEL = document.getElementById('caret-position-label');
+const TEXT_AREA_CONTAINER = document.getElementById('text-area-container');
+const TEXT_AREA_INPUT = document.getElementById('text-area-input');
 
 const selectBank = (bankCode) => {
     if (bankCode) {
+        SELECTION_OPTIONS.bank = bankCode;
         const selectedBankCard = document.querySelector(`#b${bankCode}`);
         selectedBankCard.classList.add('selected');
-        const cnabSection = document.querySelector('#cnab-selection');
-        cnabSection.classList.remove('d-none');
+        CNAB_SECTION.classList.remove('d-none');
     }
 }
 
 const selectCnab = (cnabCode) => {
+    CNAB_BUTTONS.forEach(btn => btn.classList.remove('selected'));
     if (cnabCode) {
+        SELECTION_OPTIONS.cnab = cnabCode;
         const selectedCnabButton = document.querySelector(`#c${cnabCode}`);
         selectedCnabButton.classList.add('selected');
-        const textEditorSection = document.querySelector('#text-editor');
-        const bankSection = document.querySelector('#bank-selection');
-        const cnabSection = document.querySelector('#cnab-selection');
-        bankSection.classList.add('d-none');
-        cnabSection.classList.add('d-none');
-        textEditorSection.classList.remove('d-none');
+        FILE_SECTION.classList.remove('d-none');
+    }
+}
+
+const selectFile = (fileCode) => {
+    FILE_BUTTONS.forEach(btn => btn.classList.remove('selected'));
+    if (fileCode) {
+        SELECTION_OPTIONS.file = fileCode;
+        const selectedFileButton = document.querySelector(`#${fileCode}`);
+        selectedFileButton.classList.add('selected');
+        TEXT_AREA_CONTAINER.classList.remove('d-none');
+    }
+}
+
+const start = () => {
+    const fileContent = TEXT_AREA_INPUT.value;
+    if (fileContent) {
+        BANK_SECTION.classList.add('d-none');
+        CNAB_SECTION.classList.add('d-none');
+        FILE_SECTION.classList.add('d-none');
+        TEXT_AREA_CONTAINER.classList.add('d-none');
+        TEXT_EDITOR_SECTION.classList.remove('d-none');
         
-        const textEditorDisplay = document.getElementById('text-editor-display');
-        const spanList = getSpanElementsFromFileContents(fileContent);
-        spanList.forEach(span => {
-            textEditorDisplay.appendChild(span);
-        });
+        SELECTED_TEMPLATE = CNAB_TEMPLATES[SELECTION_OPTIONS.bank][SELECTION_OPTIONS.cnab][SELECTION_OPTIONS.file];
+
+        const segList = getSegmentsFromFileContents(fileContent);
+        segList.forEach(seg => TEXT_EDITOR_DISPLAY.appendChild(seg));
+        TEXT_AREA_INPUT.value = null;
     }
 }
 
 const goBack = () => {
     const selectedElements = document.querySelectorAll('.selected');
-    const textEditorSection = document.querySelector('#text-editor');
-    const bankSection = document.querySelector('#bank-selection');
-    textEditorSection.classList.add('d-none');
-    bankSection.classList.remove('d-none');
+    TEXT_EDITOR_SECTION.classList.add('d-none');
+    BANK_SECTION.classList.remove('d-none');
     selectedElements.forEach(el => el.classList.remove('selected'));
+    TEXT_EDITOR_DISPLAY.innerHTML = '';
 }
 
 const onFocus = (event, segId, posId) => {
-    const textEditorDisplay = document.getElementById('text-editor-display');
-    textEditorDisplay.childNodes.forEach(node => node.classList.remove('selected'));
-    const segment = itau400retTemplate.find(seg => seg.id === segId);
+    TEXT_EDITOR_DISPLAY.childNodes.forEach(node => node.classList.remove('selected'));
+    const segment = SELECTED_TEMPLATE.find(seg => seg.id === segId);
     const position = segment.positions.find(pos => pos.id === posId);
-    const descriptionDisplay = document.getElementById('description-display');
-    descriptionDisplay.textContent = `${position.s}/${position.e} ${position.name} - ${position.description}`;
-    descriptionDisplay.classList.remove('d-none');
+
+    DESCRIPTION_DISPLAY.textContent = `${position.s}/${position.e} ${position.name} - ${position.description}`;
+    DESCRIPTION_DISPLAY.classList.remove('d-none');
+
     const spanEl = document.getElementById(`${position.id}`);
     spanEl.classList.add('selected');
 }
 
-const getSpanElementsFromFileContents = (content) => {
-    let divList = [];
+const getSegmentsFromFileContents = (content) => {
+    let segList = [];
     let dividedContent = content.split('\n');
 
     dividedContent.forEach((segContent, index) => {
-        const seg = itau400retTemplate[index];
+        const seg = SELECTED_TEMPLATE[index];
         let spanList = [];
         seg.positions.forEach(pos => {
             const spanContent = String(segContent).substring((pos.s-1), (pos.e));
@@ -67,10 +107,10 @@ const getSpanElementsFromFileContents = (content) => {
         const newDiv = document.createElement('div');
         newDiv.classList.add('segment');
         newDiv.innerHTML = spanList.join('');
-        divList.push(newDiv);
+        segList.push(newDiv);
     });
 
-    return divList;
+    return segList;
 }
 
 const onKeyUp = (event, segId, posId) => {
@@ -79,7 +119,7 @@ const onKeyUp = (event, segId, posId) => {
         return;
     }
 
-    const segment = itau400retTemplate.find(seg => seg.id === segId);
+    const segment = SELECTED_TEMPLATE.find(seg => seg.id === segId);
     const position = segment.positions.find(pos => pos.id === posId);
 
     updateCaretPosition(event, position);
@@ -114,8 +154,7 @@ const onBlur = (event, maxlength) => {
     }
 
     srcElement.classList.remove('selected');
-    const descDisplay = document.getElementById('description-display');
-    descDisplay.classList.add('d-none');
+    DESCRIPTION_DISPLAY.classList.add('d-none');
 }
 
 const getSpaces = (spacesNum) => {
@@ -147,11 +186,10 @@ const updateCaretPosition = (event, position) => {
 }
 
 const updateCaretPositionLabel = (caretPosition, position) => {
-    const caretPositionLabelEl = document.getElementById('caret-position-label');
     if (caretPosition > position.e) {
-        caretPositionLabelEl.classList.add('danger');
+        CARET_POSITION_LABEL.classList.add('danger');
     } else {
-        caretPositionLabelEl.classList.remove('danger');
+        CARET_POSITION_LABEL.classList.remove('danger');
     }
-    caretPositionLabelEl.innerText = caretPosition;
+    CARET_POSITION_LABEL.innerText = caretPosition;
 }

@@ -1,25 +1,6 @@
-const positions = [
-    {id: 111, s: 1, e: 1, name: 'Tipo de registro', description: 'Identificação do registro header', default: '0'},
-    {id: 122, s: 2, e: 2, name: 'Código de retorno', description: 'Identificação do arquivo retorno', default: '2'},
-    {id: 139, s: 3, e: 9, name: 'Literal de retorno', description: 'Identificação por extenso do tipo de movimento', default: 'RETORNO'},
-    {id: 11011, s: 10, e: 11, name: 'Código do retorno', description: 'Identificação do tipo de serviço', default: '01'},
-    {id: 11226, s: 12, e: 26, name: 'Literal de serviço', description: 'Identificação por extenso do tipo de serviço', default: 'COBRANCA'},
-    {id: 12730, s: 27, e: 30, name: 'Agência', description: 'Agência mantenedora da conta', default: null},
-    {id: 13132, s: 31, e: 32, name: 'Zeros', description: 'Complemento de registro', default: '00'},
-    {id: 13337, s: 33, e: 37, name: 'Contas', description: 'Número da conta corrente da empresa', default: null},
-    {id: 13838, s: 38, e: 38, name: 'DAC', description: 'Dígito de auto conferência ag/conta empresa', default: null},
-    {id: 13946, s: 39, e: 46, name: 'Brancos', description: 'Complemento do registro', default: null},
-    {id: 14776, s: 47, e: 76, name: 'Nome da empresa', description: 'Nome por extenso da "Empresa mãe"', default: null},
-    {id: 17779, s: 77, e: 79, name: 'Código do banco', description: 'Número do banco na câmara de compensação', default: '341'},
-    {id: 18094, s: 80, e: 94, name: 'Nome do banco', description: 'Nome por extenso do banco cobrador', default: 'BANCO ITAU S.A.'},
-    {id: 195100, s: 95, e: 100, name: 'Data de geração', description: 'Data de geração do arquivo', default: null},
-    {id: 1101105, s: 101, e: 105, name: 'Densidade', description: 'Unidade da densidade', default: null},
-    {id: 1106108, s: 106, e: 108, name: 'Unidade de densid.', description: 'Densidade de gravação do arquivo', default: 'BPI'},
-    {id: 1109113, s: 109, e: 113, name: 'Nº seq. arquivo ret.', description: 'Número seqüencial do arquivo retorno', default: null},
-    {id: 1114119, s: 114, e: 119, name: 'Data de crédito', description: 'Data de crédito dos lançamentos', default: null},
-    {id: 1120394, s: 120, e: 394, name: 'Brancos', description: 'Complemento do registro', default: null},
-    {id: 1394400, s: 395, e: 400, name: 'Número seqüencial', description: 'Número seqüencial do registro no arquivo', default: '000001'}
-];
+// 02RETORNO01COBRANCA       072400654321        DUNDER MIFFLIN PAPER COMPANY L341BANCO ITAU S.A.12032401600BPI00050120324                                                                                                                                                                                                                                                                                   000001
+// 10216958379000187072400654321        T280220240101            00000001            099000000011             I06040923000831500100000325            04092300000013373783416305701000000000014000000000000000000000000000000000000000000000000000000000000040121000000129711700000000000000000000000000   05092300000000000000000000000MUNDIALMIX COMERCIO DE ALIM...                                      CK000016
+// 9201341          000000000000000000000000000000          000000000000000000000000000000                                                  000000000000000000000000000000          0000016200000627282812  05/09S000500000003900000074576441                                                                                                                                                                000041
 
 const itau400retTemplate = [
     {

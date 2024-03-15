@@ -37,9 +37,10 @@ header {
 }
 
 header > h1,
-header > h3 {
+header > h4 {
     font-weight: 400;
     text-align: center;
+    margin: 5px 0;
 }
 
 section > header {
@@ -92,28 +93,39 @@ button.selected {
 .p-v-25 { padding-top: 25px; padding-bottom: 25px; }
 
 textarea {
+    display: block;
     font-family: monospace;
     background-color: #383737;
     color: #FFFFFF;
     font-weight: 500;
     font-size: 16px;
-    margin: 25px auto;
+    margin: 0 auto;
     resize: none;
-    width: 100%;
+    width: 80%;
     max-height: 250px;
     border-radius: 8px;
     padding: 10px;
     text-wrap: nowrap;
 }
 
-.bank-card {
+.cnab-selection-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 50px;
+    transition: .2s;
+}
+
+.bank-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
     padding: 15px;
-    width: 150px;
+    width: 250px;
+    height: 75px;
     border-radius: 8px;
     transition: .2s;
     user-select: none;
@@ -129,7 +141,28 @@ textarea {
 }
 
 .bank-card > img {
-    max-width: 75px;
+    max-width: 55px;
+}
+
+.button-row-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-row-container > button {
+    border-radius: 0;
+}
+
+.button-row-container > button:first-child {
+    border-start-start-radius: 8px;
+    border-end-start-radius: 8px;
+}
+
+.button-row-container > button:last-child {
+    border-end-end-radius: 8px;
+    border-start-end-radius: 8px;
 }
 
 #description-display {
