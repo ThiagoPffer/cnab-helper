@@ -22,6 +22,7 @@ const CNAB_SECTION = document.getElementById('cnab-selection');
 const FILE_SECTION = document.getElementById('file-selection');
 const TEXT_EDITOR_SECTION = document.getElementById('text-editor');
 const TEXT_EDITOR_DISPLAY = document.getElementById('text-editor-display');
+const LINE_COUNTER_CONTAINER = document.getElementById('line-counter-container');
 const DESCRIPTION_DISPLAY = document.getElementById('description-display');
 const CARET_POSITION_LABEL = document.getElementById('caret-position-label');
 const TEXT_AREA_CONTAINER = document.getElementById('text-area-container');
@@ -56,25 +57,48 @@ const selectFile = (fileCode) => {
     }
 }
 
-const start = () => {
-    const fileContent = TEXT_AREA_INPUT.value;
-    if (fileContent) {      
+const start = (generateNewFile) => {
+    SELECTED_TEMPLATE = CNAB_TEMPLATES[SELECTION_OPTIONS.bank][SELECTION_OPTIONS.cnab][SELECTION_OPTIONS.file];
+    if (generateNewFile) {
         try {
-            SELECTED_TEMPLATE = CNAB_TEMPLATES[SELECTION_OPTIONS.bank][SELECTION_OPTIONS.cnab][SELECTION_OPTIONS.file];
-
-            const segList = getSegmentsFromFileContents(fileContent);
-            segList.forEach(seg => TEXT_EDITOR_DISPLAY.appendChild(seg));
-            TEXT_AREA_INPUT.value = null;
-    
-            BANK_SECTION.classList.add('d-none');
-            CNAB_SECTION.classList.add('d-none');
-            FILE_SECTION.classList.add('d-none');
-            TEXT_AREA_CONTAINER.classList.add('d-none');
-            TEXT_EDITOR_SECTION.classList.remove('d-none');
-        } catch(error) {
+            const segList = getSegments();
+            segList.forEach((seg, index) => {
+                const span = document.createElement('span');
+                span.innerText = index+1;
+                LINE_COUNTER_CONTAINER.appendChild(span);
+                TEXT_EDITOR_DISPLAY.appendChild(seg);
+            });
+            hideSelectionButtons();
+        } catch (error) {
             console.error(error.message);
         }
+    } else {
+        const fileContent = TEXT_AREA_INPUT.value;
+        if (fileContent) {
+            try {
+                const segList = getSegmentsFromFileContents(fileContent);
+                segList.forEach(seg => {
+                    const span = document.createElement('span');
+                    span.innerText = index+1;
+                    LINE_COUNTER_CONTAINER.appendChild(span);
+                    TEXT_EDITOR_DISPLAY.appendChild(seg);
+                    TEXT_EDITOR_DISPLAY.appendChild(seg)
+                });
+                hideSelectionButtons();
+            } catch(error) {
+                console.error(error.message);
+            }
+        }
     }
+}
+
+const hideSelectionButtons = () => {
+    TEXT_AREA_INPUT.value = null;
+    BANK_SECTION.classList.add('d-none');
+    CNAB_SECTION.classList.add('d-none');
+    FILE_SECTION.classList.add('d-none');
+    TEXT_AREA_CONTAINER.classList.add('d-none');
+    TEXT_EDITOR_SECTION.classList.remove('d-none');
 }
 
 const goBack = () => {
@@ -107,7 +131,8 @@ const getSegmentsFromFileContents = (content) => {
             let spanList = [];
             seg.positions.forEach(pos => {
                 const spanContent = String(segContent).substring((pos.s-1), (pos.e));
-                spanList.push(`<span id="${pos.id}" contenteditable="true" onfocus="onFocus(event, ${seg.id}, ${pos.id})" onkeyup="onKeyUp(event, ${seg.id}, ${pos.id})" onkeypress="onKeyPress(event, ${(pos.e-pos.s)+1})" onblur="onBlur(event, ${(pos.e-pos.s)+1})">${spanContent}</span>`);
+                const spanElement = getSpanElement(seg, pos, spanContent);
+                spanList.push(spanElement);
             });
             const newDiv = document.createElement('div');
             newDiv.classList.add('segment');
@@ -117,6 +142,38 @@ const getSegmentsFromFileContents = (content) => {
     });
 
     return segList;
+}
+
+const getSegments = () => {
+    let segList = [];
+    const requiredSegs = SELECTED_TEMPLATE.filter(seg => !seg.optional);
+    requiredSegs.forEach(seg => {
+        let spanList = [];
+        seg.positions.forEach(pos => {
+            const spanContent = getSpanContent(pos);
+            const spanElement = getSpanElement(seg, pos, spanContent);
+            spanList.push(spanElement);
+        });
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('segment');
+        newDiv.innerHTML = spanList.join('');
+        segList.push(newDiv);
+    });
+    return segList;
+}
+
+const getSpanContent = (pos) => {
+    const posLength = (pos.e - pos.s) + 1;
+    if (pos.default) {
+        if (pos.default === ZEROS) {
+            return getChars(posLength, '0');
+        }
+        if (pos.default === WHITES) {
+            return getChars(posLength, ' ');
+        }
+        return pos.default;
+    }
+    return getChars(posLength, ' ');
 }
 
 const getCurrentSegment = (segContent) => {
@@ -146,8 +203,14 @@ const onKeyPress = (event, maxlength) => {
         return;
     }
 
-    const text = event.srcElement.innerText;
-    if (text.length === maxlength) {
+    let text = event.srcElement.innerText;
+
+    if (text.trim().length === 0) {
+        event.srcElement.textContent = '';
+        return;
+    }
+
+    if (text.length === maxlength && text.trim().length > 0) {
         event.preventDefault();
         const srcElement = event.srcElement;
         srcElement.classList.add('warning');
@@ -160,8 +223,9 @@ const onBlur = (event, maxlength) => {
     srcElement.classList.remove('selected');
     const textLength = srcElement.innerText.length;
     if (textLength < maxlength) {
-        const spaces = getSpaces((maxlength - textLength));
+        const spaces = getChars((maxlength - textLength), ' ');
         srcElement.innerText += spaces;
+        srcElement.classList.remove('danger');
     }
     if (textLength > maxlength) {
         srcElement.classList.add('danger');
@@ -172,14 +236,14 @@ const onBlur = (event, maxlength) => {
     DESCRIPTION_DISPLAY.classList.add('d-none');
 }
 
-const getSpaces = (spacesNum) => {
+const getChars = (length, char) => {
     let i = 0;
-    let spaces = '';
-    while(i < spacesNum) { 
-        spaces += ' ' 
+    let chars = '';
+    while(i < length) { 
+        chars += char; 
         i++;
     }
-    return spaces;
+    return chars;
 }
 
 const getCaretPosition = (event) => {
@@ -207,4 +271,18 @@ const updateCaretPositionLabel = (caretPosition, position) => {
         CARET_POSITION_LABEL.classList.remove('danger');
     }
     CARET_POSITION_LABEL.innerText = caretPosition;
+}
+
+const getSpanElement = (seg, pos, content) => {
+    return `<span id="${pos.id}" contenteditable="true" onfocus="onFocus(event, ${seg.id}, ${pos.id})" onkeyup="onKeyUp(event, ${seg.id}, ${pos.id})" onkeypress="onKeyPress(event, ${(pos.e-pos.s)+1})" onblur="onBlur(event, ${(pos.e-pos.s)+1})">${content}</span>`;
+}
+
+const exportContent = () => {
+    const generatedText = TEXT_EDITOR_DISPLAY.innerText;
+    const a = document.createElement('a');
+    a.href = `data:text/plain,${generatedText}`;  
+    a.download = `${SELECTION_OPTIONS.bank}${SELECTION_OPTIONS.cnab}${SELECTION_OPTIONS.file}.ret`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }

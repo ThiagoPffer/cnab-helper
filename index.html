@@ -38,7 +38,7 @@
                     <button class="cnab-button" id="c240" type="button" onclick="selectCnab('240')">CNAB 240</button>
                 </div>
             </section>
-    
+
             <section id="file-selection" class="d-none" style="transition: .2s">
                 <header>
                     <h4 class="selection-label">Selecione o tipo de arquivo</h4>
@@ -53,21 +53,31 @@
         <section id="text-area-container" class="d-none" style="margin-top: 45px;">
             <div class="column-container justify-center align-center mw-80 m-0-auto gap-16">
                 <header>
-                    <h4 class="selection-label">Para finalizar, insira na caixa de texto abaixo o conteúdo do arquivo</h4>
+                    <h4 class="selection-label">Para finalizar, insira na caixa de texto abaixo o conteúdo do arquivo e clique em "Iniciar", 
+                        <br>
+                        ou gere um arquivo novo em "Gerar arquivo zerado"</h4>
                 </header>
                 <textarea id="text-area-input" cols="30" rows="10"></textarea>
-                <button class="start-button" id="start" type="button" onclick="start()">Iniciar</button>
+                <div class="row-container justify-center align-center gap-16">
+                    <button class="start-button" id="start" type="button" onclick="start(false)">Iniciar</button>
+                    <button class="start-zero-button" id="start" type="button" onclick="start(true)">Gerar arquivo zerado</button>
+                </div>
             </div>
         </section>
     
         <section id="text-editor" class="d-none p-v-25">
             <div class="column-container justify-center align-center mw-80 m-0-auto">
                 <div id="description-display" class="d-none"></div>
-                <div id="text-editor-container">
-                    &#8203;
-                    <div id="text-editor-display" onblur="onBlur(event)"></div>
-                    &#8203;
+                &#8203;
+                <div class="row-container justify-start align-center">
+                    <button class="export-content-button" id="start" type="button" onclick="exportContent()">Exportar conteúdo</button>
                 </div>
+                &#8203;
+                <div id="text-editor-container">
+                    <div id="line-counter-container"></div>
+                    <div id="text-editor-display" onblur="onBlur(event)"></div>
+                </div>
+                &#8203;
                 <div class="row-container">
                     <div class="details-container">
                         <span>Posição: </span>
@@ -81,13 +91,7 @@
     </section>
     <!-- <ul>
         <li>
-            <input type="checkbox" /> Detectar qual o segmento que a linha pertence
-        </li>
-        <li>
-            <input type="checkbox" /> Inserir valores default ao inicializar
-        </li>
-        <li>
-            <input type="checkbox" /> Enumerar as linhas do display
+            <input type="checkbox" /> Atribuir função de busca de segmentos ao escopo do cnab selecionado
         </li>
         <li>
             <input type="checkbox" /> Permitir trocar de linhas usando as setas pra cima e baixo
