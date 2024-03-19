@@ -179,6 +179,8 @@ textarea {
     border: 2px solid rgb(255, 99, 99);
     padding: 15px 25px;
     border-radius: 8px;
+    width: fit-content;
+    margin: 5px auto;
 }
 
 #text-editor-container {
@@ -188,37 +190,20 @@ textarea {
     height: auto;
 }
 
-#line-counter-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 32px;
-    width: 40px;
-    height: 100%;
-    max-height: 550px;
-    background-color: #474747;
-    padding: 10px;
-    border-radius: 8px 0 0 8px;
-}
-
 #text-editor-display {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     column-gap: 10px;
     font-weight: 500;
     font-size: 16px;
-    line-height: 32px;
-    border-radius: 0 8px 8px 0;
+    line-height: 30px;
+    border-radius: 8px;
+    padding: 10px 50px 10px 0;
     background-color: #383737;
     width: 100%;
     min-height: fit-content;
-    max-height: 550px;
+    max-height: 250px;
     overflow: auto;
-    padding: 10px;
-    padding-right: 50px;
     text-wrap: nowrap;
     transition: .2s;
     position: relative;
@@ -264,6 +249,36 @@ textarea {
     background-color: rgba(255, 221, 0, 0.305);
     border: 1px dashed rgb(255, 190, 99);
     padding: 5px 15px;
+}
+
+#text-editor-display > #line-counter-container {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    line-height: normal;
+    height: 100%;
+    left: 0;
+}
+
+#text-editor-display .counter-span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    color: rgb(143, 143, 143);
+    padding: 5px 15px;
+    white-space: pre;
+    border: 1px solid transparent;
+    outline: none;
+    background-color: #383737;
+    border-right: 1px solid #494949;
+    border-radius: 0;
+}
+
+#text-editor-display .counter-span:hover,
+#text-editor-display .counter-span:focus {
+    background-color: #383737;
+    border: 1px solid transparent;
 }
 
 #caret-position-label.danger {

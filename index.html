@@ -74,8 +74,10 @@
                 </div>
                 &#8203;
                 <div id="text-editor-container">
-                    <div id="line-counter-container"></div>
-                    <div id="text-editor-display" onblur="onBlur(event)"></div>
+                    <div id="text-editor-display" onblur="onBlur(event)">
+                        <div id="line-counter-container"></div>
+                        <div id="segment-container"></div>
+                    </div>
                 </div>
                 &#8203;
                 <div class="row-container">
@@ -84,14 +86,14 @@
                         <span id="caret-position-label"></span>
                     </div>
                 </div>
-                <div id="error-display" class="d-none"></div>
                 <button class="back-button" id="back" type="button" onclick="goBack()">Voltar</button>
             </div>
         </section>
+        <div id="error-display" class="d-none"></div>
     </section>
     <!-- <ul>
         <li>
-            <input type="checkbox" /> Atribuir função de busca de segmentos ao escopo do cnab selecionado
+            <input type="checkbox" /> Permitir adicionar linhas para registros repetíveis
         </li>
         <li>
             <input type="checkbox" /> Permitir trocar de linhas usando as setas pra cima e baixo

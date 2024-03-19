@@ -5,6 +5,15 @@
 const ZEROS = 'zeros';
 const WHITES = 'whites';
 
+const getCurrentSegment = (segContent) => {
+    try {
+        const segId = Number(segContent[0]);
+        return SELECTED_TEMPLATE.find(seg => seg.id === segId);
+    } catch (error) {
+        console.error('O arquivo informado é inválido. Detalhes do erro: ', error.message);
+    }
+}
+
 const itau400retTemplate = [
     {
         id: 0,
