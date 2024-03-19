@@ -30,6 +30,7 @@ html {
 body {
     background-color: #2b2b2b;
     color: #FFFFFF;
+    height: 100vh;
 }
 
 header {
@@ -110,6 +111,14 @@ textarea {
     text-wrap: nowrap;
 }
 
+.main-section {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 .cnab-selection-container {
     display: flex;
     flex-direction: row;
@@ -183,6 +192,14 @@ textarea {
     margin: 5px auto;
 }
 
+#text-area-container {
+    width: 100%;
+}
+
+#text-editor {
+    width: 100%;
+}
+
 #text-editor-container {
     display: flex;
     flex-direction: row;
@@ -196,56 +213,59 @@ textarea {
     column-gap: 10px;
     font-weight: 500;
     font-size: 16px;
-    line-height: 30px;
     border-radius: 8px;
-    padding: 10px 50px 10px 0;
+    padding-right: 50px;
     background-color: #383737;
     width: 100%;
     min-height: fit-content;
     max-height: 250px;
     overflow: auto;
-    text-wrap: nowrap;
     transition: .2s;
     position: relative;
 }
 
-#text-editor-display > .segment {
-    display: block;
-    width: fit-content;
+#text-editor-display > #segment-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
 }
 
-#text-editor-display span {
+#segment-container > .segment {
+    display: flex;
+    width: fit-content;
+    height: auto;
+}
+
+#segment-container span {
     font-family: monospace;
+    white-space: pre;
     padding: 5px 0;
-    transition: .2s;
     border: 1px solid transparent;
     border-radius: 8px;
-    size: 1px;
-    white-space: pre;
     outline: none;
-    text-wrap: nowrap;
+    transition: .2s;
 }
 
-#text-editor-display span:hover,
-#text-editor-display span:focus {
+#segment-container span:hover,
+#segment-container span:focus {
     background-color: rgba(175, 175, 175, 0.15);
     border: 1px dashed rgb(196, 196, 196);
     padding: 5px 15px;
 }
 
-#text-editor-display span.selected {
+#segment-container span.selected {
     background-color: rgba(10, 172, 10, 0.036);
     border: 1px dashed rgb(76, 237, 76);
     padding: 5px 15px;
 }
 
-#text-editor-display span.danger {
+#segment-container span.danger {
     background-color: rgba(255, 0, 0, 0.305);
     border: 1px dashed rgb(255, 99, 99);
     padding: 5px 15px;
 }
 
-#text-editor-display span.warning {
+#segment-container span.warning {
     background-color: rgba(255, 221, 0, 0.305);
     border: 1px dashed rgb(255, 190, 99);
     padding: 5px 15px;
@@ -254,31 +274,22 @@ textarea {
 #text-editor-display > #line-counter-container {
     display: flex;
     flex-direction: column;
+    background-color: #383737;
+    padding: 10px 0;
     position: sticky;
-    line-height: normal;
-    height: 100%;
+    height: fit-content;
     left: 0;
 }
 
-#text-editor-display .counter-span {
+#line-counter-container .counter-span {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: monospace;
     color: rgb(143, 143, 143);
     padding: 5px 15px;
-    white-space: pre;
     border: 1px solid transparent;
-    outline: none;
-    background-color: #383737;
     border-right: 1px solid #494949;
-    border-radius: 0;
-}
-
-#text-editor-display .counter-span:hover,
-#text-editor-display .counter-span:focus {
-    background-color: #383737;
-    border: 1px solid transparent;
 }
 
 #caret-position-label.danger {

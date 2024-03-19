@@ -15,6 +15,7 @@ const KEY_FUNCTIONS = {
     'ArrowUp': () => {}
 };
 let SELECTED_TEMPLATE = null;
+let SEGMENT_FINDER_FUNCTION = null;
 
 let CARET_POSITION = 0;
 
