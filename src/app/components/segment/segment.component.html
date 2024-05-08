@@ -1,0 +1,25 @@
+<div class="segment" [ngClass]="{'selected': isFocused}">
+    <div class="input-container" *ngFor="let field of segmentData.fields">
+        <input
+            type="text" 
+            class="field"
+            [id]="'field-'+field.id" 
+            [(ngModel)]="field.content"
+            (focus)="onFocus(field, $event)"
+            (blur)="onBlur(field)"
+            (keypress)="onKeyPress(field, $event)"
+            (keyup)="onKeyUp(field, $event)"
+            [size]="field.content ? ( field.content.length || 1 ) : 1"
+            [maxlength]="(field.position.end - field.position.init) + 1"
+            [ngStyle]="{'min-width': (field.content.length * 8)+'px'}"
+        />
+        <div class="options-tooltip" *ngIf="field?.position?.options && showOptions">
+            <span><b>Opções: </b></span>
+            <ul style="list-style: none; margin: 0; padding: 0;">
+                <li *ngFor="let option of field?.position?.options">
+                    {{option.description}}: {{option.content}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

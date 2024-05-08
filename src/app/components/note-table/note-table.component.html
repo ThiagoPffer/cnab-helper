@@ -1,0 +1,29 @@
+<h4>{{tableData?.description}}</h4>
+<table id="note-table" class="default-table" *ngIf="tableData">
+    <thead>
+        <tr *ngIf="tableData.columnGroup?.length">
+            <th 
+                *ngFor="let group of tableData.columnGroup"
+                [colSpan]="group.colspan" style="text-align: center;">
+                {{group.label}}
+            </th>
+        </tr>
+        <tr style="width: 100%;">
+            <th 
+                *ngFor="let column of tableData.columns" 
+                [width]="column.width">
+                {{ column.label }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of tableData.data" >
+            <td 
+                *ngFor="let column of tableData.columns" 
+                [title]="item[column.field]">
+                {{ item[column.field] }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p *ngIf="tableData?.observation">{{tableData?.observation}}</p>

@@ -1,0 +1,70 @@
+<div class="main">
+    <div class="section-row">
+		<section class="selection-section">
+			<div class="section-header">
+				<span>Selecione um banco</span>
+			</div>
+			<ul class="section-list">
+                <li *ngFor="let bank of banks" [title]="bank.name">
+                    <a 
+                        class="list-item" 
+                        [ngClass]="bank.selected ? 'selected' : ''" 
+                        (click)="bankSelected(bank)"
+                    >
+                        <img [src]="'assets/'+bank.imgName" [alt]="bank.name">
+                        <span>{{bank.name}}</span>
+                    </a>
+                </li>
+			</ul>
+		</section>
+
+        <section *ngIf="selectedOptions.bank" class="selection-section" >
+            <div class="section-header">
+                <span>Selecione um CNAB</span>
+            </div>
+            <ul class="section-list">
+                <li *ngFor="let cnab of selectedBankCnabs" 
+                    class="list-item" 
+                    [ngClass]="cnab.id === selectedOptions.cnab?.id ? 'selected' : ''" 
+                    [title]="cnab.name" 
+                    (click)="cnabSelected(cnab)"
+                >
+                    <span>{{cnab.name}}</span>
+                </li>
+            </ul>
+        </section>
+
+        <section *ngIf="selectedOptions.cnab" class="selection-section" >
+            <div class="section-header">
+                <span>Selecione um tipo de arquivo</span>
+            </div>
+            <ul *ngIf="selectedOptions.cnab.fileOptions?.length; else cnabHasNoFiles" class="section-list">
+                <li *ngFor="let fileType of selectedOptions.cnab.fileOptions" 
+                    class="list-item" 
+                    [ngClass]="fileType.id === selectedOptions.fileTypeId ? 'selected' : ''"
+                    [title]="fileType.name"
+                    (click)="fileTypeSelected(fileType)" 
+                >
+                    <span>{{fileType.name}}</span>
+                </li>
+            </ul>
+            <ng-template #cnabHasNoFiles>
+                <span style="color: rgb(234, 103, 103);">Ainda não existem arquivos para este CNAB</span>
+            </ng-template>
+        </section>
+	</div>
+    <div *ngIf="selectedOptions.fileTypeId" class="section-row">
+        <section class="textarea-section" >
+            <div class="section-header">
+                <span>Insira abaixo o conteúdo do arquivo que deseja editar</span>
+            </div>
+            <div class="section-content">
+                <textarea [(ngModel)]="content"></textarea>
+            </div>
+            <div class="section-footer">
+                <button class="default-button" (click)="start(false)">Iniciar</button>
+                <button class="default-button" (click)="start(true)">Gerar novo arquivo</button>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<main>
+    <section style="display: flex; flex-direction: column; max-width: 50%; max-height: 100vh;">
+        <section class="text-editor-panel">
+            <header class="panel-header">
+                <h4>Editor</h4>
+                <button class="default-button" (click)="exportFile()">
+                    Exportar arquivo
+                    <span class="mdil mdil-file-plus"></span>
+                </button>
+            </header>
+            <div id="texteditor" class="texteditor">
+                <segment 
+                    *ngFor="let segment of segments; index as i" 
+                    [data]="segment"
+                    [isFocused]="segment.id === focusedData?.segment?.id"
+                    [index]="i"
+                    (segmentFocused)="onSegmentFocus($event)"
+                    (changeSegment)="onChangeSegment($event)"
+                    (caretMoved)="onCaretMove($event)"
+                ></segment>
+            </div>
+        </section>
+        <section class="details-panel">
+            <div class="panel-content">
+                <span>Posição: {{caretPosition || '0'}}</span>
+                <span>Tamanho: {{focusedData ? (focusedData.field.position.end - focusedData.field.position.init + 1) : '0'}}</span>
+                <span>Tamanho do conteúdo: {{focusedData?.field?.content?.length || '0'}}</span>
+                <span>Tipo: {{ getType(focusedData?.field?.position?.type) }}</span>
+                <span>Default: {{focusedData?.field?.position?.default || 'Não há'}}</span>
+            </div>
+        </section>
+        <section class="notes-panel">
+            <header class="panel-header">
+                <h4>
+                    Nota: 
+                    <b *ngIf="focusedData?.field?.position?.note">
+                        {{ focusedData?.field?.position?.note?.id+' - ' }}
+                    </b>
+                    {{ focusedData?.field?.position?.note?.description }}
+                </h4>
+            </header>
+            <div class="panel-content">
+                <note [noteData]="focusedData?.field?.position?.note"></note>
+            </div>
+        </section>
+        <div style="height: 10px;"></div>
+    </section>
+    <section class="segment-panel">
+        <header class="panel-header">
+            <h4>Segmento: <b>{{focusedData?.segment?.description}}</b></h4>
+        </header>
+        <div class="panel-content" [ngStyle]="{'display': focusedData ? 'block' : 'flex'}">
+            <segment-table [focusedData]="focusedData"></segment-table>
+        </div>
+        <div style="height: 10px;"></div>
+    </section>
+</main>

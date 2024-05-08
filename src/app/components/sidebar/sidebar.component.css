@@ -1,0 +1,77 @@
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--color-bg-2);
+    height: 100%;
+    max-width: 100%;
+    padding: 15px;
+    transition: .2s;
+}
+
+aside > hr {
+    width: 100%;
+    opacity: .1;
+}
+
+aside > header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 5px;
+}
+
+.toggle-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: inherit;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 5px 15px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.toggle-button:hover {
+    background-color: var(--color-bg-1);
+}
+
+.toggle-button > span {
+    font-size: 24px;
+}
+
+.list > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list > ul > li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    user-select: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-wrap: nowrap;
+}
+
+.list > ul > li > .mdil {
+    font-size: 1.5rem;
+}
+
+.list > ul > li:hover {
+    background-color: var(--color-bg-1);
+}

@@ -1,0 +1,19 @@
+<aside>
+    <header>
+        <button class="toggle-button" (click)="toggleMenu()">
+            <span [ngClass]="{
+                'mdil-chevron-left': isOpen,
+                'mdil-chevron-right': !isOpen
+            }" class="mdil"></span>
+        </button>
+    </header>
+    <hr *ngIf="router.url === '/editor'">
+    <section class="list">
+        <ul>
+            <li [routerLink]="['/home']" [ngStyle]="{'justify-content': isOpen ? 'flex-start' : 'center'}" title="Home page">
+                <span class="mdil mdil-home"></span>
+                <span *ngIf="isOpen">Home page</span>
+            </li>
+        </ul>
+    </section>
+</aside>

@@ -1,0 +1,68 @@
+.segment {
+    display: flex;
+    height: auto;
+    max-height: 50px;
+    opacity: .5;
+}
+
+.segment:hover,
+.segment.selected {
+    opacity: 1;
+}
+
+.input-container {
+    min-width: fit-content;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.153);
+}
+
+.field {
+    box-sizing: content-box !important;
+    size-adjust: initial;
+    line-height: 25px;
+    white-space: pre;
+    color: var(--color-text);
+    background-color: unset;
+    padding: 5px 0;
+    padding-right: 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    transition: .2s;
+}
+
+.field:hover {
+    background-color: rgba(175, 175, 175, 0.15);
+    border: 1px dashed rgb(196, 196, 196);
+    padding: 5px 15px;
+}
+
+.field.selected,
+.field:focus {
+    background-color: var(--color-selected-bg);
+    border: 1px dashed var(--color-selected-border);
+    padding: 5px 15px;
+}
+
+.field.danger {
+    background-color: var(--color-danger-bg);
+    border: 1px dashed var(--color-danger-border);
+    padding: 5px 15px;
+}
+
+.field.warning {
+    background-color: var(--color-warning-bg);
+    border: 1px dashed var(--color-warning-border);
+    padding: 5px 15px;
+}
+
+.options-tooltip {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    border-radius: 6px;
+    padding: 10px;
+    min-width: 100px;
+    top: 70px;
+    right: 15px;
+    position: absolute;
+    z-index: 100;
+}

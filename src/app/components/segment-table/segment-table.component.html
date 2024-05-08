@@ -1,0 +1,29 @@
+<table id="segment-table" class="default-table" *ngIf="focusedData;else noData">
+    <thead>
+        <tr style="width: 100%;">
+            <th [width]="'15%'">Posição</th>
+            <th [width]="'20%'">Nome</th>
+            <th [width]="'35%'">Descrição</th>
+            <th [width]="'25%'">Conteúdo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr 
+            *ngFor="let field of focusedData?.segment?.fields" 
+            [id]="field.id"
+            [ngClass]="{'selected': focusedData.field.id === field.id}">
+            <td [title]="field.position.init + ' - ' + field.position.end">{{field.position.init + ' - ' + field.position.end}}</td>
+            <td [title]="field.position.name">{{field.position.name}}</td>
+            <td [title]="field.position.description">{{field.position.description}}</td>
+            <td [title]="field.content" style="word-break: break-all;">{{field.content}}</td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noData>
+    <div style="margin: auto 0;">
+        <span class="error-message">
+            Nenhum item a exibir<br>
+            Selecione um segmento para iniciar
+        </span>
+    </div>
+</ng-template>

@@ -1,0 +1,47 @@
+h4 {
+	font-weight: normal;
+	text-align: center;
+}
+
+.default-table {
+	display: table;
+	border-radius: 6px;
+    border-collapse: collapse;
+    border-spacing: 0;
+	width: 100%;
+	max-height: 100%;
+	position: relative;
+	overflow: hidden;
+	font-size: .875em;
+}
+
+.default-table > tbody,
+.default-table > thead {
+	width: 100%;
+}
+
+.default-table tr {
+	height: 25px;
+	width: 100%;
+}
+
+.default-table td,
+.default-table th {
+	text-align: left;
+	padding: 10px;
+}
+
+.default-table th {
+	background-color: #585858;
+}
+
+.default-table td {
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+	background-color: #3d3d3d;
+	border-bottom: 1px solid var(--color-bg-1);
+}
+
+.default-table tr:hover td{
+	background-color: #5d5d5d;
+}

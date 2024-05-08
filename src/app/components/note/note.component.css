@@ -1,0 +1,11 @@
+.error-message {
+	color: rgb(234, 103, 103); 
+	text-align: center; 
+	width: 100%; 
+	display: inline-block; 
+	margin: 50px 0;
+}
+
+ul li {
+    margin: 15px 0;
+}

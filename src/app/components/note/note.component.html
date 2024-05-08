@@ -1,0 +1,23 @@
+<div *ngIf="noteData?.content?.length; else noData">
+    <section *ngFor="let content of noteData?.content">
+        <h3 *ngIf="content.title">{{ content.title }}</h3>
+        <div *ngIf="content.type === 'TEXT'">
+            <p *ngFor="let text of content.text">{{ text }}</p>
+        </div>
+        <div *ngIf="content.type === 'TABLE'">
+            <note-table *ngFor="let tableData of content.tableData" [tableData]="tableData"></note-table>
+        </div>
+        <div *ngIf="content.type === 'LIST'">
+            <ul>
+                <li *ngFor="let item of content.listData">{{ item }}</li>
+            </ul>
+        </div>
+    </section>
+</div>
+<ng-template #noData>
+    <div style="margin: auto 0;">
+        <span class="error-message">
+            Nenhum item a exibir
+        </span>
+    </div>
+</ng-template>

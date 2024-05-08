@@ -1,0 +1,59 @@
+.default-table {
+	display: block;
+	border-radius: 6px;
+    border-collapse: collapse;
+    border-spacing: 0;
+	width: 100%;
+	max-height: 100%;
+	position: relative;
+	overflow: auto;
+	overflow-x: hidden;
+	font-size: .875em;
+}
+
+.default-table > tbody,
+.default-table > thead {
+	width: 100%;
+	overflow: scroll;
+}
+
+.default-table tr {
+	height: 40px;
+	width: 100%;
+}
+
+.default-table td,
+.default-table th {
+	text-align: left;
+	padding: 15px;
+	transition: .2s;
+}
+
+.default-table th {
+	position: sticky !important;
+	top: 0;
+	background-color: #585858;
+}
+
+.default-table td {
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+	background-color: #3d3d3d;
+	border-bottom: 1px solid var(--color-bg-1);
+}
+
+.default-table tr:hover td{
+	background-color: #5d5d5d;
+}
+
+.default-table tr.selected td{
+	background-color: #6bfb5580;
+}
+
+.error-message {
+	color: rgb(234, 103, 103); 
+	text-align: center; 
+	width: 100%; 
+	display: inline-block; 
+	margin: 50px 0;
+}
