@@ -10,7 +10,6 @@ import { SegmentComponent } from '../../components/segment/segment.component';
 import { SegmentTableComponent } from '../../components/segment-table/segment-table.component';
 import { UtilService } from '../../services/util.service';
 import { NoteComponent } from '../../components/note/note.component';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-editor',

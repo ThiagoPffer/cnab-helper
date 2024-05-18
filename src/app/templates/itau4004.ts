@@ -91,7 +91,7 @@ sai no aviso de cobrança, retornando ao beneficiário no arquivo retorno em qua
             },
             {
                 type: NoteContentType.TEXT,
-                listData: [
+                text: [
                     "(*) A coluna 'TIPO' define a modalidade das carteiras: E - Escritural / D - Direta",
                     "(A) No arquivo retorno é informado somente: agência, conta corrente, carteira, nosso número, data dpagamento, multa, desconto/abatimento, tarifa, valor líquido",
                     "(B) No arquivo retorno é informado somente: agência, conta corrente, carteira, nosso número, data do pagamento, multa, desconto/abatimento, tarifa, valor líquido e seu número.",

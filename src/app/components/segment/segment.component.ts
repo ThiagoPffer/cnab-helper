@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, TestabilityRegistry } from '@angular/core';
-import { Field, FocusedData, Segment } from '../../models/segment';
+import { EnumPositionType, Field, FocusedData, Segment } from '../../models/segment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UtilService } from '../../services/util.service';
@@ -74,9 +74,19 @@ export class SegmentComponent {
     this.showOptions = false;
     const maxlength = (field.position.end - field.position.init + 1);
     if (!field.content.length || field.content.length < maxlength) {
-      field.content += this.util.getContentByPositionType((maxlength - field.content.length), field.position.type); 
+      field.content = this.getContent(
+        this.util.getContentByPositionType((maxlength - field.content.length), field.position.type), 
+        field
+      );
     }
     this.segmentFocused.emit(null);
+  }
+
+  getContent(fillContent: string, field: Field): string {
+    if (field.position.type === EnumPositionType.N) {
+      return fillContent + field.content;
+    }
+    return field.content + fillContent;
   }
 
   onKeyPress(field: Field, event: Event) {
