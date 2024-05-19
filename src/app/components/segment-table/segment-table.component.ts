@@ -1,6 +1,6 @@
-import { CommonModule, ViewportScroller } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FocusedData } from '../../models/segment';
+import { FocusedData, Segment, Field } from './../../models/segment';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'segment-table',
@@ -14,6 +14,9 @@ export class SegmentTableComponent implements OnChanges{
   @Input()
   focusedData!: FocusedData | null;
 
+  @Output()
+  selectedField = new EventEmitter<FocusedData>();
+
   constructor() {}
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -26,5 +29,11 @@ export class SegmentTableComponent implements OnChanges{
         inline: "nearest"
       });
     }
+  }
+
+  onSelect(field: Field) {
+    this.selectedField.emit({
+      field, segment: this.focusedData?.segment as Segment
+    })
   }
 }

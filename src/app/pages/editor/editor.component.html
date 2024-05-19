@@ -50,7 +50,10 @@
             <h4>Segmento: <b>{{focusedData?.segment?.description}}</b></h4>
         </header>
         <div class="panel-content" [ngStyle]="{'display': focusedData ? 'block' : 'flex'}">
-            <segment-table [focusedData]="focusedData"></segment-table>
+            <segment-table 
+                [focusedData]="focusedData"
+                (selectedField)="onSegmentFocus($event)"
+            ></segment-table>
         </div>
         <div style="height: 10px;"></div>
     </section>

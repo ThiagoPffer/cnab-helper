@@ -119,6 +119,7 @@ export class EditorComponent implements OnInit{
   onSegmentFocus(focusedData: FocusedData | null) {
     if (focusedData) {
       this.focusedData = focusedData;
+      document.getElementById(String(`field-${focusedData.field.id}`))?.focus();
     }
   }
 

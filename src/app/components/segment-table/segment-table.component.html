@@ -11,7 +11,9 @@
         <tr 
             *ngFor="let field of focusedData?.segment?.fields" 
             [id]="field.id"
-            [ngClass]="{'selected': focusedData.field.id === field.id}">
+            style="cursor: pointer;"
+            [ngClass]="{'selected': focusedData.field.id === field.id}"
+            (click)="onSelect(field)">
             <td [title]="field.position.init + ' - ' + field.position.end">{{field.position.init + ' - ' + field.position.end}}</td>
             <td [title]="field.position.name">{{field.position.name}}</td>
             <td [title]="field.position.description">{{field.position.description}}</td>
