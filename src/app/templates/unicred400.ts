@@ -714,7 +714,7 @@ export const UNICRED_400: Template[] = [
                 "name": "CANAL DE LIQUIDAÇÃO",
                 "description": "Vide Informações Adicionais.",
                 "type": EnumPositionType.N,
-                "note": notes[8]
+                "note": notes[4]
             },
             {
                 "id": 2120146,
@@ -799,8 +799,8 @@ export const UNICRED_400: Template[] = [
                 "type": EnumPositionType.N
             },
             {
-                "id": 2227187,
-                "init": 187,
+                "id": 2227177,
+                "init": 197,
                 "end": 227,
                 "name": "FIXO",
                 "description": "BRANCOS* Este campo deve ser desconsiderado. Ele está reservado para melhorias.",
