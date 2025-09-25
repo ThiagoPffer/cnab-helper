@@ -32,13 +32,24 @@ export class HomeComponent {
 				{ id: 4, name: 'COBRANÇA BANCÁRIA - CNAB 240', fileOptions: [] }
 			]
 		},
+		{
+			code: 136,
+			name: 'Banco Unicred',
+			imgName: 'unicred.png',
+			selected: false,
+			cnabs: [
+				{ id: 5, name: 'COBRANÇA BANCÁRIA - CNAB 400', fileOptions: [
+					{ id: 2, name: 'Retorno' }	
+				]}
+			]
+		}
 	]
 	
 
   	constructor(private router: Router) {}
 
 	bankSelected(bank: Bank) {
-    bank.selected = !bank.selected;
+    	bank.selected = !bank.selected;
 
 		if (!bank.selected) {
 			this.selectedBankCnabs = [];

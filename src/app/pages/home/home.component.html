@@ -5,10 +5,10 @@
 				<span>Selecione um banco</span>
 			</div>
 			<ul class="section-list">
-                <li *ngFor="let bank of banks" [title]="bank.name">
+                <li style="margin-bottom: 10px;" *ngFor="let bank of banks" [title]="bank.name">
                     <a 
                         class="list-item" 
-                        [ngClass]="bank.selected ? 'selected' : ''" 
+                        [ngClass]="selectedOptions.bank?.code === bank.code ? 'selected' : ''" 
                         (click)="bankSelected(bank)"
                     >
                         <img [src]="'assets/'+bank.imgName" [alt]="bank.name">
