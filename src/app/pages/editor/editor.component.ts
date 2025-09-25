@@ -163,7 +163,7 @@ export class EditorComponent implements OnInit{
     });
     const a = document.createElement('a');
     a.href = `data:text/plain,${generatedText}`;  
-    a.download = `${this.selectedOptions.bank?.name}${this.selectedOptions.cnab?.name}.${fileType?.name}`;
+    a.download = `${this.selectedOptions.bank?.label}-${fileType?.name}.${fileType?.type}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

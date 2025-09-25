@@ -20,14 +20,15 @@ export class HomeComponent {
 	banks: Bank[] = [
 		{
 			code: 341, 
-			name: 'Banco Itaú', 
+			name: 'Banco Itaú',
+			label: 'itau', 
 			imgName: 'itau.svg', 
 			selected: false,
 			cnabs: [
 				{ id: 1, name: 'SISPAG - CNAB 240 - VERSÃO 085', fileOptions: [] },
 				{ id: 2, name: 'SISPAG - CNAB 240 - VERSÃO 080', fileOptions: [] },
 				{ id: 3, name: 'COBRANÇA BANCÁRIA - CNAB 400', fileOptions: [
-					{ id: 1, name: 'Retorno' }
+					{ id: 1, name: 'Retorno', type: 'ret' }
 				]},
 				{ id: 4, name: 'COBRANÇA BANCÁRIA - CNAB 240', fileOptions: [] }
 			]
@@ -35,11 +36,12 @@ export class HomeComponent {
 		{
 			code: 136,
 			name: 'Banco Unicred',
+			label: 'unicred',
 			imgName: 'unicred.png',
 			selected: false,
 			cnabs: [
 				{ id: 5, name: 'COBRANÇA BANCÁRIA - CNAB 400', fileOptions: [
-					{ id: 2, name: 'Retorno' }	
+					{ id: 2, name: 'Retorno', type: 'ret' }	
 				]}
 			]
 		}

@@ -3,6 +3,7 @@ import { Template } from "./segment"
 export interface Bank {
     code: number
     name: string
+    label: string
     imgName: string
     selected?: boolean
     cnabs: Cnab[]
@@ -17,6 +18,7 @@ export interface Cnab {
 export interface FileOption {
     id: number
     name: string
+    type: string
 }
 
 export interface Options {
