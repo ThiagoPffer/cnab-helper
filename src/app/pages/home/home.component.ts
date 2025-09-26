@@ -44,6 +44,18 @@ export class HomeComponent {
 					{ id: 2, name: 'Retorno', type: 'ret' }	
 				]}
 			]
+		},
+		{
+			code: 133,
+			name: 'Banco Cresol',
+			label: 'cresol',
+			imgName: 'cresol.png',
+			selected: false,
+			cnabs: [
+				{ id: 6, name: 'COBRANÇA BANCÁRIA - CNAB 400', fileOptions: [
+					{ id: 3, name: 'Retorno', type: 'ret' }	
+				]}
+			]
 		}
 	]
 	
